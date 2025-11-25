@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$SAME - The Same Coin</title>
+    <meta name="description" content="If everyone keeps buying the same coin and never sell, then everyone would be rich.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://pbs.twimg.com/media/G6oQvXLWcAAuwqN?format=jpg&name=small">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: '#F9F1D8',
+                            300: '#EAD797',
+                            400: '#D4AF37', // Standard Gold
+                            500: '#C5A028',
+                            600: '#A38216',
+                            900: '#5C4805',
+                        },
+                        black: {
+                            900: '#050505',
+                            800: '#0a0a0a',
+                            700: '#121212'
+                        }
+                    },
+                    fontFamily: {
+                        'cinzel': ['Cinzel', 'serif'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gold-gradient': 'linear-gradient(135deg, #D4AF37 0%, #F9F1D8 50%, #A38216 100%)',
+                        'black-gradient': 'linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(5,5,5,1))',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shine': 'shine 3s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        shine: {
+                            '0%': { backgroundPosition: '200% center' },
+                            '100%': { backgroundPosition: '-200% center' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F9F1D8;
+        }
+
+        .text-gold-gradient {
+            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        .border-gold-gradient {
+            border-image: linear-gradient(to right, #bf953f, #fcf6ba, #b38728) 1;
+        }
+
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .hero-bg {
+            background-image: url('https://pbs.twimg.com/media/G6oT7q0XIAI2_sm?format=jpg&name=small');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 glass-panel border-b border-gold-400/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img class="h-12 w-12 rounded-full border-2 border-gold-400 mr-3" src="https://pbs.twimg.com/media/G6oQvXLWcAAuwqN?format=jpg&name=small" alt="$SAME Logo">
+                    <span class="font-cinzel font-bold text-2xl text-gold-gradient tracking-wider">$SAME</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
+                        <a href="#chart" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Chart</a>
+                        <a href="#how-to-buy" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">How to Buy</a>
+                    </div>
+                </div>
+                <div>
+                    <a href="https://pump.fun/coin/7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump" target="_blank" class="bg-gradient-to-r from-gold-600 to-gold-400 text-black font-bold py-2 px-6 rounded-full hover:from-gold-300 hover:to-gold-500 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                        BUY NOW
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 hero-bg"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-black-900/90 via-black-900/80 to-black-900"></div>
+        
+        <!-- Animated Particles/Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-gold-400/20 rounded-full blur-[80px] animate-pulse-slow"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-48 h-48 bg-gold-600/10 rounded-full blur-[100px] animate-pulse-slow" style="animation-delay: 1s;"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center">
+            <img src="https://pbs.twimg.com/media/G6oQvXLWcAAuwqN?format=jpg&name=small" alt="Same Coin" class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-gold-400 shadow-[0_0_30px_rgba(212,175,55,0.3)] mb-8 animate-float" data-aos="zoom-in" data-aos-duration="1500">
+            
+            <h1 class="text-5xl md:text-8xl font-cinzel font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-300 via-gold-100 to-gold-500 mb-6 drop-shadow-lg tracking-widest" data-aos="fade-up">
+                $SAME
+            </h1>
+            
+            <p class="mt-4 max-w-2xl mx-auto text-xl md:text-2xl text-gray-300 font-cinzel leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                "If everyone keeps buying the <span class="text-gold-400 font-bold">same coin</span> and never sell, then everyone would be rich."
+            </p>
+
+            <!-- CA Box -->
+            <div class="mt-8 relative group cursor-pointer" onclick="copyToClipboard()" data-aos="fade-up" data-aos-delay="400">
+                <div class="absolute -inset-1 bg-gradient-to-r from-gold-600 to-gold-300 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative px-6 py-4 bg-black-900 ring-1 ring-gold-400/50 rounded-lg leading-none flex items-center space-x-4">
+                    <span class="text-gold-400 font-mono text-sm md:text-base break-all" id="contract-address">7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump</span>
+                    <i class="fas fa-copy text-gray-400 hover:text-white transition-colors"></i>
+                </div>
+                <div id="copy-feedback" class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gold-400 text-black px-3 py-1 rounded text-sm font-bold opacity-0 transition-opacity duration-300">
+                    Copied!
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div class="mt-10 flex space-x-6" data-aos="fade-up" data-aos-delay="600">
+                <a href="https://x.com/sameonsol?s=21" target="_blank" class="text-3xl text-gray-400 hover:text-gold-400 transition-all transform hover:scale-110">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <a href="https://dexscreener.com/solana/7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump" target="_blank" class="text-3xl text-gray-400 hover:text-gold-400 transition-all transform hover:scale-110">
+                    <i class="fas fa-chart-line"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Philosophy / Lore Section -->
+    <section id="about" class="py-20 bg-black-800 relative border-t border-gold-900/50">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-cinzel font-bold text-gold-gradient mb-12" data-aos="fade-up">The Philosophy</h2>
+            
+            <div class="glass-panel p-8 md:p-12 rounded-2xl relative overflow-hidden" data-aos="zoom-in-up">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
+                
+                <p class="text-lg md:text-2xl text-gray-300 leading-relaxed font-light mb-8">
+                    "Except for the last person?
+                    <br><br>
+                    But what if there will <span class="text-gold-400 font-bold italic">never</span> be a 'last person'?
+                    <br><br>
+                    <span class="text-3xl md:text-4xl font-cinzel text-white block mt-8">We all win keep winning.</span>"
+                </p>
+                
+                <div class="flex justify-center mt-8">
+                    <div class="w-24 h-1 bg-gold-400 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="bg-gold-500 py-3 overflow-hidden border-y border-gold-300">
+        <div class="whitespace-nowrap inline-block animate-[shine_20s_linear_infinite]" style="animation: scroll 20s linear infinite;">
+            <span class="text-black font-black text-xl mx-8 font-cinzel">$SAME</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">WE ALL WIN</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">$SAME</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">KEEP WINNING</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">$SAME</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">BUY THE DIP</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">$SAME</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">WE ALL WIN</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">$SAME</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">KEEP WINNING</span>
+            <span class="text-black font-black text-xl mx-8 font-cinzel">$SAME</span>
+        </div>
+    </div>
+    <style>
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+
+    <!-- Chart Section -->
+    <section id="chart" class="py-20 bg-black-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-cinzel font-bold text-center text-gold-gradient mb-12" data-aos="fade-down">Live Chart</h2>
+            <div class="w-full h-[600px] border border-gold-400/30 rounded-xl overflow-hidden shadow-[0_0_20px_rgba(212,175,55,0.1)]" data-aos="zoom-in">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://dexscreener.com/solana/7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump?embed=1&theme=dark" 
+                    frameborder="0">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Buy Section -->
+    <section id="how-to-buy" class="py-20 bg-black-800 relative">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-cinzel font-bold text-center text-gold-gradient mb-16" data-aos="fade-up">How to Buy $SAME</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-5xl text-gold-400 mb-6"><i class="fas fa-wallet"></i></div>
+                    <h3 class="text-xl font-bold font-cinzel text-white mb-4">1. Create Wallet</h3>
+                    <p class="text-gray-400">Download Phantom or any Solana compatible wallet from the app store or google chrome extension.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-5xl text-gold-400 mb-6">
+                        <!-- Solana SVG Logo -->
+                        <svg class="w-12 h-12 fill-current" viewBox="0 0 397 311" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zm263.5-164.8c-2.4 2.4-5.7 3.8-9.2 3.8H1.6c-5.8 0-8.7-7-4.6-11.1l62.7-62.7c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7zm-263.5 82.4c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold font-cinzel text-white mb-4">2. Get Some SOL</h3>
+                    <p class="text-gray-400">Purchase SOL from an exchange like Binance or Coinbase and send it to your Phantom wallet address.</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-5xl text-gold-400 mb-6"><i class="fas fa-exchange-alt"></i></div>
+                    <h3 class="text-xl font-bold font-cinzel text-white mb-4">3. Swap for $SAME</h3>
+                    <p class="text-gray-400">Go to Raydium or Jupiter, paste the contract address, and swap your SOL for $SAME.</p>
+                    <div class="mt-4 p-2 bg-black-900 rounded text-xs text-center text-gold-600 font-mono break-all">
+                        7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black-900 border-t border-gold-900/50 py-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col items-center">
+            <img class="h-16 w-16 rounded-full border-2 border-gold-600 mb-6 opacity-80" src="https://pbs.twimg.com/media/G6oQvXLWcAAuwqN?format=jpg&name=small" alt="$SAME Logo">
+            <h3 class="font-cinzel text-2xl text-gold-500 mb-8">$SAME COIN</h3>
+            
+            <div class="flex space-x-8 mb-8">
+                <a href="https://x.com/sameonsol?s=21" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-chart-line fa-lg"></i></a>
+            </div>
+            
+            <p class="text-gray-600 text-sm text-center max-w-2xl">
+                Disclaimer: $SAME is a meme coin with no intrinsic value or expectation of financial return. The coin is for entertainment purposes only.
+            </p>
+            <p class="text-gray-700 text-xs mt-4">© 2024 Same Coin. We all win.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Animate On Scroll
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Copy to Clipboard Functionality
+        function copyToClipboard() {
+            const caText = document.getElementById('contract-address').innerText;
+            navigator.clipboard.writeText(caText).then(() => {
+                const feedback = document.getElementById('copy-feedback');
+                feedback.style.opacity = '1';
+                setTimeout(() => {
+                    feedback.style.opacity = '0';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
