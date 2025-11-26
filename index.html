@@ -169,6 +169,23 @@
             background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
             transform: translateX(-50%);
         }
+
+        /* Memory Game Styles */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -186,12 +203,13 @@
                     <span class="font-cinzel font-bold text-2xl text-gold-gradient tracking-wider">$SAME</span>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#about" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
-                        <a href="#tokenomics" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Tokenomics</a>
-                        <a href="#chart" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Chart</a>
-                        <a href="#roadmap" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Roadmap</a>
-                        <a href="#how-to-buy" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">How to Buy</a>
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#about" class="hover-trigger hover:text-gold-400 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
+                        <a href="#tokenomics" class="hover-trigger hover:text-gold-400 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-300">Tokenomics</a>
+                        <a href="#game" class="hover-trigger hover:text-gold-400 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-300">Game</a>
+                        <a href="#chart" class="hover-trigger hover:text-gold-400 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-300">Chart</a>
+                        <a href="#roadmap" class="hover-trigger hover:text-gold-400 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-300">Roadmap</a>
+                        <a href="#how-to-buy" class="hover-trigger hover:text-gold-400 px-2 py-2 rounded-md text-sm font-medium transition-colors duration-300">How to Buy</a>
                     </div>
                 </div>
                 <div>
@@ -303,6 +321,29 @@
                     <h3 class="text-2xl font-cinzel text-white font-bold mb-2">Liquidity</h3>
                     <p class="text-gold-300 text-3xl font-black">BURNED</p>
                     <p class="text-gray-400 mt-2 text-sm">100% Safe</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memory Game Section -->
+    <section id="game" class="py-20 bg-black-800 relative border-t border-gold-900/30">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h2 class="text-4xl font-cinzel font-bold text-gold-gradient mb-4" data-aos="fade-up">Find the Same Coin</h2>
+            <p class="text-gray-400 mb-12" data-aos="fade-up" data-aos-delay="100">Match the colors. We all win.</p>
+            
+            <div id="game-container" class="max-w-md mx-auto relative min-h-[400px]" data-aos="zoom-in">
+                <!-- Game Board -->
+                <div id="game-board" class="grid grid-cols-4 gap-4">
+                    <!-- Cards will be injected here by JS -->
+                </div>
+
+                <!-- Win Message (Hidden by default) -->
+                <div id="win-message" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-black-900/90 rounded-xl z-20 backdrop-blur-sm">
+                    <h3 class="text-4xl font-cinzel text-gold-400 font-bold mb-4 animate-bounce">WE ALL WIN!</h3>
+                    <button onclick="initGame()" class="hover-trigger bg-gold-500 text-black font-bold py-2 px-6 rounded-full hover:bg-gold-400 transition-colors">
+                        Play Again
+                    </button>
                 </div>
             </div>
         </div>
@@ -422,11 +463,8 @@
 
                 <!-- Step 2 -->
                 <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300 hover-trigger" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-5xl text-gold-400 mb-6">
-                        <!-- Solana SVG Logo -->
-                        <svg class="w-12 h-12 fill-current" viewBox="0 0 397 311" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7zm263.5-164.8c-2.4 2.4-5.7 3.8-9.2 3.8H1.6c-5.8 0-8.7-7-4.6-11.1l62.7-62.7c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7zm-263.5 82.4c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7z"/>
-                        </svg>
+                    <div class="text-5xl text-gold-400 mb-6 flex justify-center font-cinzel font-black">
+                        $SOL
                     </div>
                     <h3 class="text-xl font-bold font-cinzel text-white mb-4">2. Get Some SOL</h3>
                     <p class="text-gray-400">Purchase SOL from an exchange like Binance or Coinbase and send it to your Phantom wallet address.</p>
@@ -459,7 +497,7 @@
             <p class="text-gray-600 text-sm text-center max-w-2xl">
                 Disclaimer: $SAME is a meme coin with no intrinsic value or expectation of financial return. The coin is for entertainment purposes only.
             </p>
-            <p class="text-gray-700 text-xs mt-4">© 2024 Same Coin. We all win.</p>
+            <p class="text-gray-700 text-xs mt-4">© 2025 Same Coin. We all win.</p>
         </div>
     </footer>
 
@@ -521,6 +559,116 @@
                 });
             });
         }
+
+        /* --- Memory Game Logic --- */
+        const gameContainer = document.getElementById('game-board');
+        const winMessage = document.getElementById('win-message');
+        
+        // Coin colors (using Tailwind text classes)
+        const coinColors = [
+            'text-red-500', 
+            'text-blue-500', 
+            'text-green-500', 
+            'text-purple-500', 
+            'text-cyan-400', 
+            'text-pink-500', 
+            'text-yellow-400', 
+            'text-white'
+        ];
+        
+        let cards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let isLocked = false;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function initGame() {
+            gameContainer.innerHTML = '';
+            winMessage.classList.add('hidden');
+            flippedCards = [];
+            matchedPairs = 0;
+            isLocked = false;
+            
+            // Duplicate array to create pairs
+            const deck = [...coinColors, ...coinColors];
+            shuffle(deck);
+
+            deck.forEach((color, index) => {
+                const card = document.createElement('div');
+                card.className = 'relative h-24 w-full cursor-pointer perspective-1000 hover-trigger';
+                card.setAttribute('data-color', color);
+                
+                const inner = document.createElement('div');
+                inner.className = 'w-full h-full relative transition-transform duration-500 transform-style-3d shadow-lg rounded-xl';
+                inner.style.transformStyle = 'preserve-3d';
+                
+                // Front (Hidden - Shows Gold Logo)
+                const front = document.createElement('div');
+                front.className = 'absolute inset-0 bg-black-900 border border-gold-400/50 rounded-xl flex items-center justify-center backface-hidden';
+                front.innerHTML = '<i class="fas fa-coins text-gold-400 text-2xl"></i>';
+                
+                // Back (Revealed - Shows Color)
+                const back = document.createElement('div');
+                back.className = 'absolute inset-0 bg-black-800 border border-gray-600 rounded-xl flex items-center justify-center backface-hidden rotate-y-180';
+                back.innerHTML = `<i class="fas fa-circle ${color} text-4xl drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]"></i>`;
+                
+                inner.appendChild(front);
+                inner.appendChild(back);
+                card.appendChild(inner);
+                
+                card.addEventListener('click', () => flipCard(card, inner));
+                gameContainer.appendChild(card);
+            });
+        }
+
+        function flipCard(card, inner) {
+            if (isLocked) return;
+            if (card.classList.contains('flipped')) return;
+
+            card.classList.add('flipped');
+            inner.style.transform = 'rotateY(180deg)';
+            flippedCards.push({ card, inner, color: card.getAttribute('data-color') });
+
+            if (flippedCards.length === 2) {
+                checkMatch();
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.color === card2.color) {
+                // Match
+                flippedCards = [];
+                matchedPairs++;
+                if (matchedPairs === coinColors.length) {
+                    setTimeout(() => {
+                        winMessage.classList.remove('hidden');
+                    }, 500);
+                }
+            } else {
+                // No Match
+                isLocked = true;
+                setTimeout(() => {
+                    card1.inner.style.transform = 'rotateY(0deg)';
+                    card2.inner.style.transform = 'rotateY(0deg)';
+                    card1.card.classList.remove('flipped');
+                    card2.card.classList.remove('flipped');
+                    flippedCards = [];
+                    isLocked = false;
+                }, 1000);
+            }
+        }
+
+        // Initialize Game on Load
+        document.addEventListener('DOMContentLoaded', initGame);
     </script>
 </body>
 </html>
