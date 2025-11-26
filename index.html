@@ -76,6 +76,40 @@
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #D4AF37;
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        
+        /* Hover effect for links/buttons */
+        body.hovering .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-color: #D4AF37;
         }
 
         /* Custom Scrollbar */
@@ -111,6 +145,12 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.2);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-panel:hover {
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+            border-color: rgba(212, 175, 55, 0.5);
         }
 
         .hero-bg {
@@ -119,27 +159,43 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
+            transform: translateX(-50%);
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Custom Cursor Elements -->
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 transition-all duration-300 glass-panel border-b border-gold-400/30">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="flex-shrink-0 flex items-center cursor-pointer hover-trigger" onclick="window.scrollTo(0,0)">
                     <img class="h-12 w-12 rounded-full border-2 border-gold-400 mr-3" src="https://pbs.twimg.com/media/G6oQvXLWcAAuwqN?format=jpg&name=small" alt="$SAME Logo">
                     <span class="font-cinzel font-bold text-2xl text-gold-gradient tracking-wider">$SAME</span>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#about" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
-                        <a href="#chart" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Chart</a>
-                        <a href="#how-to-buy" class="hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">How to Buy</a>
+                        <a href="#about" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
+                        <a href="#tokenomics" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Tokenomics</a>
+                        <a href="#chart" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Chart</a>
+                        <a href="#roadmap" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Roadmap</a>
+                        <a href="#how-to-buy" class="hover-trigger hover:text-gold-400 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">How to Buy</a>
                     </div>
                 </div>
                 <div>
-                    <a href="https://pump.fun/coin/7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump" target="_blank" class="bg-gradient-to-r from-gold-600 to-gold-400 text-black font-bold py-2 px-6 rounded-full hover:from-gold-300 hover:to-gold-500 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.5)]">
+                    <a href="https://pump.fun/coin/7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump" target="_blank" class="hover-trigger bg-gradient-to-r from-gold-600 to-gold-400 text-black font-bold py-2 px-6 rounded-full hover:from-gold-300 hover:to-gold-500 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.5)]">
                         BUY NOW
                     </a>
                 </div>
@@ -169,7 +225,7 @@
             </p>
 
             <!-- CA Box -->
-            <div class="mt-8 relative group cursor-pointer" onclick="copyToClipboard()" data-aos="fade-up" data-aos-delay="400">
+            <div class="mt-8 relative group cursor-pointer hover-trigger" onclick="copyToClipboard()" data-aos="fade-up" data-aos-delay="400">
                 <div class="absolute -inset-1 bg-gradient-to-r from-gold-600 to-gold-300 rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
                 <div class="relative px-6 py-4 bg-black-900 ring-1 ring-gold-400/50 rounded-lg leading-none flex items-center space-x-4">
                     <span class="text-gold-400 font-mono text-sm md:text-base break-all" id="contract-address">7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump</span>
@@ -182,10 +238,10 @@
 
             <!-- Social Links -->
             <div class="mt-10 flex space-x-6" data-aos="fade-up" data-aos-delay="600">
-                <a href="https://x.com/sameonsol?s=21" target="_blank" class="text-3xl text-gray-400 hover:text-gold-400 transition-all transform hover:scale-110">
+                <a href="https://x.com/sameonsol?s=21" target="_blank" class="hover-trigger text-3xl text-gray-400 hover:text-gold-400 transition-all transform hover:scale-110">
                     <i class="fab fa-x-twitter"></i>
                 </a>
-                <a href="https://dexscreener.com/solana/7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump" target="_blank" class="text-3xl text-gray-400 hover:text-gold-400 transition-all transform hover:scale-110">
+                <a href="https://dexscreener.com/solana/7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump" target="_blank" class="hover-trigger text-3xl text-gray-400 hover:text-gold-400 transition-all transform hover:scale-110">
                     <i class="fas fa-chart-line"></i>
                 </a>
             </div>
@@ -210,6 +266,43 @@
                 
                 <div class="flex justify-center mt-8">
                     <div class="w-24 h-1 bg-gold-400 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tokenomics Section (NEW) -->
+    <section id="tokenomics" class="py-20 bg-black-900 relative overflow-hidden">
+        <!-- Floating shapes -->
+        <div class="absolute top-20 right-0 w-64 h-64 bg-gold-500/5 rounded-full blur-[60px]"></div>
+        <div class="absolute bottom-20 left-0 w-64 h-64 bg-gold-500/5 rounded-full blur-[60px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <h2 class="text-4xl font-cinzel font-bold text-center text-gold-gradient mb-16" data-aos="fade-up">Tokenomics</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- Card 1 -->
+                <div class="glass-panel p-10 rounded-xl transform transition-all duration-300 hover:scale-105" data-aos="flip-left" data-aos-delay="0">
+                    <div class="text-4xl text-gold-400 mb-4"><i class="fas fa-coins"></i></div>
+                    <h3 class="text-2xl font-cinzel text-white font-bold mb-2">Supply</h3>
+                    <p class="text-gold-300 text-3xl font-black">1 Billion</p>
+                    <p class="text-gray-400 mt-2 text-sm">Circulating Supply</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="glass-panel p-10 rounded-xl transform transition-all duration-300 hover:scale-105" data-aos="flip-left" data-aos-delay="200">
+                    <div class="text-4xl text-gold-400 mb-4"><i class="fas fa-percent"></i></div>
+                    <h3 class="text-2xl font-cinzel text-white font-bold mb-2">Tax</h3>
+                    <p class="text-gold-300 text-3xl font-black">0 / 0</p>
+                    <p class="text-gray-400 mt-2 text-sm">Buy / Sell Tax</p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="glass-panel p-10 rounded-xl transform transition-all duration-300 hover:scale-105" data-aos="flip-left" data-aos-delay="400">
+                    <div class="text-4xl text-gold-400 mb-4"><i class="fas fa-fire"></i></div>
+                    <h3 class="text-2xl font-cinzel text-white font-bold mb-2">Liquidity</h3>
+                    <p class="text-gold-300 text-3xl font-black">BURNED</p>
+                    <p class="text-gray-400 mt-2 text-sm">100% Safe</p>
                 </div>
             </div>
         </div>
@@ -253,22 +346,82 @@
         </div>
     </section>
 
+    <!-- Roadmap Section (NEW) -->
+    <section id="roadmap" class="py-20 bg-black-800 relative">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="text-4xl font-cinzel font-bold text-center text-gold-gradient mb-20" data-aos="fade-up">Roadmap</h2>
+            
+            <div class="relative">
+                <!-- Vertical Line -->
+                <div class="timeline-line hidden md:block"></div>
+                
+                <!-- Phase 1 -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                    <div class="order-1 md:w-5/12 text-center md:text-right" data-aos="fade-right">
+                        <h3 class="text-2xl font-cinzel text-gold-400 font-bold mb-2">Phase 1</h3>
+                        <div class="glass-panel p-6 rounded-xl inline-block w-full">
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>Token Launch</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>Website Release</li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i>Community Building</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="z-10 order-1 bg-black-900 border-4 border-gold-400 w-8 h-8 rounded-full my-4 md:my-0 shadow-[0_0_15px_#D4AF37]"></div>
+                    <div class="order-1 md:w-5/12"></div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-16 relative">
+                    <div class="order-1 md:w-5/12"></div>
+                    <div class="z-10 order-1 bg-black-900 border-4 border-gold-400 w-8 h-8 rounded-full my-4 md:my-0 shadow-[0_0_15px_#D4AF37]"></div>
+                    <div class="order-1 md:w-5/12 text-center md:text-left" data-aos="fade-left">
+                        <h3 class="text-2xl font-cinzel text-gold-400 font-bold mb-2">Phase 2</h3>
+                        <div class="glass-panel p-6 rounded-xl inline-block w-full">
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li><i class="fas fa-rocket text-gold-400 mr-2"></i>More Holders</li>
+                                <li><i class="fas fa-rocket text-gold-400 mr-2"></i>Strategic Partnerships</li>
+                                <li><i class="fas fa-rocket text-gold-400 mr-2"></i>We Keep Winning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="flex flex-col md:flex-row items-center justify-between relative">
+                    <div class="order-1 md:w-5/12 text-center md:text-right" data-aos="fade-right">
+                        <h3 class="text-2xl font-cinzel text-gold-400 font-bold mb-2">Phase 3</h3>
+                        <div class="glass-panel p-6 rounded-xl inline-block w-full">
+                            <ul class="text-gray-300 text-sm space-y-2">
+                                <li><i class="fas fa-crown text-gold-400 mr-2"></i>Market Domination</li>
+                                <li><i class="fas fa-crown text-gold-400 mr-2"></i>No Last Person</li>
+                                <li><i class="fas fa-crown text-gold-400 mr-2"></i>Everyone is Rich</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="z-10 order-1 bg-black-900 border-4 border-gold-400 w-8 h-8 rounded-full my-4 md:my-0 shadow-[0_0_15px_#D4AF37]"></div>
+                    <div class="order-1 md:w-5/12"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- How to Buy Section -->
-    <section id="how-to-buy" class="py-20 bg-black-800 relative">
+    <section id="how-to-buy" class="py-20 bg-black-900 relative">
         <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <h2 class="text-4xl font-cinzel font-bold text-center text-gold-gradient mb-16" data-aos="fade-up">How to Buy $SAME</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Step 1 -->
-                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="0">
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300 hover-trigger" data-aos="fade-up" data-aos-delay="0">
                     <div class="text-5xl text-gold-400 mb-6"><i class="fas fa-wallet"></i></div>
                     <h3 class="text-xl font-bold font-cinzel text-white mb-4">1. Create Wallet</h3>
                     <p class="text-gray-400">Download Phantom or any Solana compatible wallet from the app store or google chrome extension.</p>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300 hover-trigger" data-aos="fade-up" data-aos-delay="200">
                     <div class="text-5xl text-gold-400 mb-6">
                         <!-- Solana SVG Logo -->
                         <svg class="w-12 h-12 fill-current" viewBox="0 0 397 311" xmlns="http://www.w3.org/2000/svg">
@@ -280,11 +433,11 @@
                 </div>
 
                 <!-- Step 3 -->
-                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300" data-aos="fade-up" data-aos-delay="400">
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-2 transition-transform duration-300 hover-trigger" data-aos="fade-up" data-aos-delay="400">
                     <div class="text-5xl text-gold-400 mb-6"><i class="fas fa-exchange-alt"></i></div>
                     <h3 class="text-xl font-bold font-cinzel text-white mb-4">3. Swap for $SAME</h3>
                     <p class="text-gray-400">Go to Raydium or Jupiter, paste the contract address, and swap your SOL for $SAME.</p>
-                    <div class="mt-4 p-2 bg-black-900 rounded text-xs text-center text-gold-600 font-mono break-all">
+                    <div class="mt-4 p-2 bg-black-900 rounded text-xs text-center text-gold-600 font-mono break-all cursor-text">
                         7ifX7okDF3Q5equtyFo5BkwZyeKY1hGcZCmkZQ5upump
                     </div>
                 </div>
@@ -299,8 +452,8 @@
             <h3 class="font-cinzel text-2xl text-gold-500 mb-8">$SAME COIN</h3>
             
             <div class="flex space-x-8 mb-8">
-                <a href="https://x.com/sameonsol?s=21" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-chart-line fa-lg"></i></a>
+                <a href="https://x.com/sameonsol?s=21" class="hover-trigger text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="#" class="hover-trigger text-gray-400 hover:text-white transition-colors"><i class="fas fa-chart-line fa-lg"></i></a>
             </div>
             
             <p class="text-gray-600 text-sm text-center max-w-2xl">
@@ -332,6 +485,40 @@
                 }, 2000);
             }).catch(err => {
                 console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        // Add listener only if device supports hover (desktop)
+        if (window.matchMedia("(hover: hover)").matches) {
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+
+                // Dot follows instantly
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+
+                // Outline follows with slight delay (animation in CSS)
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
+            });
+
+            // Add hover effect for links and buttons
+            const hoverTriggers = document.querySelectorAll('a, button, .hover-trigger');
+            
+            hoverTriggers.forEach(trigger => {
+                trigger.addEventListener('mouseenter', () => {
+                    document.body.classList.add('hovering');
+                });
+                trigger.addEventListener('mouseleave', () => {
+                    document.body.classList.remove('hovering');
+                });
             });
         }
     </script>
